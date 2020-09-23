@@ -1,0 +1,134 @@
+ <!DOCTYPE html>
+  <html>
+    <head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	  	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	  	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.0/dist/email.min.js"></script>
+	    <script type="text/javascript">
+			window.addEventListener('load', function() {
+				const queryString = window.location.search;
+				const urlParams = new URLSearchParams(queryString);
+				const name = urlParams.get('name');
+				const contact = urlParams.get('contact');
+
+				document.getElementById("name").value = name,
+		        document.getElementById("contact").value = contact;
+
+			});
+
+			(function(){
+			  	emailjs.init("user_1zERChcXb08qloMMXqbpN"); 
+			})();
+
+	       	function Verify(event) {
+	            if (document.getElementById("name").value.trim() === "" || document.getElementById("contact").value.trim() === "" || document.getElementById("location").value.trim() === "") {
+	            	event.preventDefault();
+	                alert ("You must provide your name and a contact info!");
+	            } else {
+	               if (document. getElementsByName('q1')[0].checked || document. getElementsByName('q2')[0].checked) {
+
+		                var nusd_health_screening_params = {
+	                		"name": document.getElementById("name").value,
+		                   	"q1": document. getElementsByName('q1')[0].checked ? "Yes" : "No",
+		                   	"q2": document. getElementsByName('q2')[0].checked ? "Yes" : "No",
+		                   	"contact": document.getElementById("contact").value
+		                }
+		                emailjs.send('default_service', 'health_sreening_template', nusd_health_screening_params); 		                
+	                }
+
+                	alert ("Thank you");
+	                window.location.reload();
+	            }
+	        }
+	    </script>
+
+	  	<style>
+	  		body, span {
+	  			font-size: 16px !important;
+	  		}
+	  	</style>
+    </head>
+
+    <body>
+
+		<nav class="red lighten-2">
+			<div class="container">
+			    <div class="nav-wrapper">
+			      <a style='font-size: 2.0em'>NUSD Health Screening</a>
+			    </div>
+		    </div>
+	  	</nav>
+
+	  	<div class="container">
+	  		<p class="flow-text">
+	  			All staff will be required to respond to the following questionnaire before entering the classroom. This survey has health screening questions and teacher or staff will be asked what school/classroom they will be in for the day.
+	  		</p>
+
+	  		<div class="row">
+			    <form class="col s12">
+			      <div class="row">
+			        <div class="input-field col s3">
+			          	<input id="name" type="text" placeholder="Full Name" class="validate" required="" aria-required="true">
+			        </div>
+			        <div class="input-field col s6">
+			          	<input id="contact" type="text" placeholder="Email or phone" class="validate" required="" aria-required="true">
+			        </div>
+			        <div class="input-field col s3">
+			          	<input id="location" type="text" placeholder="e.g. NHS Room 1234" class="validate" required="" aria-required="true">
+			        </div>
+			      </div>
+			    </form>
+		  	</div>
+			
+			<blockquote>
+		  		I affirm that I have been without fever for 24 hours without the use of fever-reducing medications and that I have not had symptoms of respiratory illness (cough, shortness of breath, or runny nose) in the past 24 hours.
+	  		</blockquote>
+
+			<div>
+				<p class="flow-text">
+					<label>
+						<input name="q1" type="radio" checked id="q1_yes"/>
+						<span>Yes</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="q1" type="radio" id="q1_no"/>
+						<span>No</span>
+					</label>
+				</p>				   
+			</div>
+
+			<br>
+
+		  	<blockquote>
+				I affirm that anyone that I live with or anyone that I have been in close contact with has been without fever (100.4 or above) for 24 hours, without the use of fever-reducing medication, and that they have not had symptoms of respiratory illness (cough, shortness of breath, or runny nose) in the past 24 hours.
+		  	</blockquote>	
+		  	<div>
+				<p>
+					<label>
+						<input name="q2" type="radio" checked id="q2_yes"/>
+						<span>Yes</span>
+					</label>
+				</p>
+				<p>
+					<label>
+						<input name="q2" type="radio" id="q2_no"/>
+						<span>No</span>
+					</label>
+				</p>				   
+			</div>
+
+	  		<br>
+
+			<button class="btn btn-medium red pulse lighten-2" type="submit" name="action" onclick="Verify(event)">Submit
+				<i class="material-icons right">send</i>
+			</button>
+	  	</div>	
+	</body>
+</html>
+        
